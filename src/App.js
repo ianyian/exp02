@@ -1,23 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import TicTacToe from "./components/TicTacToe";
+import MemoryMatchingGame from "./components/MemoryMatchingGame";
+import DropdownMenu from "./components/DropdownMenu";
+import "./App.css";
 
 function App() {
+  const [selectedGame, setSelectedGame] = useState("");
+
+  const games = ["Tic-Tac-Toe", "Memory Matching Game"];
+
+  const handleGameSelection = (game) => {
+    setSelectedGame(game);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='App'>
+      <h1>Game Center</h1>
+      <DropdownMenu games={games} onSelectGame={handleGameSelection} />
+      <div>
+        {selectedGame === "Tic-Tac-Toe" && <TicTacToe />}
+        {selectedGame === "Memory Matching Game" && <MemoryMatchingGame />}
+        {!selectedGame && <p>Please select a game from the dropdown menu!</p>}
+      </div>
     </div>
   );
 }
